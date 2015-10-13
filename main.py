@@ -125,22 +125,8 @@ class WebhookHandler(webapp2.RequestHandler):
         elif 'what time' in text:
             reply('CAKE IS A LIEEEE!!111!!')
         else:
-            if getEnabled(chat_id):
-                try:
-                    resp1 = json.load(urllib2.urlopen('http://www.simsimi.com/requestChat?lc=en&ft=1.0&req=' + urllib.quote_plus(text.encode('utf-8'))))
-                    back = resp1.get('res')
-                except urllib2.HTTPError, err:
-                    logging.error(err)
-                    back = str(err)
-                if not back:
-                    reply('okay...')
-                elif 'I HAVE NO RESPONSE' in back:
-                    reply('you said something with no meaning')
-                else:
-                    reply(back)
-            else:
-                logging.info('not enabled for chat_id {}'.format(chat_id))
-
+            reply('error');
+        
 
 app = webapp2.WSGIApplication([
     ('/me', MeHandler),
