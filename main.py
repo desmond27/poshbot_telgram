@@ -133,4 +133,4 @@ app = webapp2.WSGIApplication([
     ('/updates', GetUpdatesHandler),
     ('/set_webhook', SetWebhookHandler),
     ('/webhook', WebhookHandler),
-], debug=True)
+],
