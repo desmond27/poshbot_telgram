@@ -14,7 +14,7 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 import webapp2
 
-TOKEN = '134593956:AAEVMCbXDJw3Mjt4TEWyq1ztn_QiysdiSUU'
+TOKEN = 'removed'
 
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
