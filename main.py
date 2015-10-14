@@ -112,9 +112,10 @@ class WebhookHandler(webapp2.RequestHandler):
             elif text == '/stop':
                 reply('Poshbot stopped')
                 setEnabled(chat_id, False) 
-            elif text == '/posh': #add more posh parameters here
-                replies=['PPOOOOOOOSshhshshshsshshsshshshsh','Wuhoo You so Posh','OMG POSH!!!!','Fuckin Posh eh']
-                reply(random.choice(replies))
+            elif text.startswith('/posh'): #add more posh parameters here
+                arg=text.strip('/posh')
+                replies=['wow, you are so posh {}'.format(arg),'THATs QUITE SOME POSHHHNNEESSSS  {}'.format(arg),'OMG You so posh, {}'.format(arg),'Fuckin posh,eh {}'.format(arg)]
+                reply((replies))
 
             elif text == '/image':
                 img = Image.new('RGB', (512, 512))
