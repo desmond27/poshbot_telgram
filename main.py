@@ -5,16 +5,16 @@ import random
 import urllib
 import urllib2
 
-
-
+# image supports
+from PIL import Image
 import multipart
 
-
+#appengine imports
 from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 import webapp2
 
-TOKEN = '--removed--'
+TOKEN = '134593956:AAEVMCbXDJw3Mjt4TEWyq1ztn_QiysdiSUU'
 
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
@@ -107,30 +107,50 @@ class WebhookHandler(webapp2.RequestHandler):
 
         if text.startswith('/'):
             if text == '/start':
-                reply('Bot enabled')
+                reply('Poshbot started')
                 setEnabled(chat_id, True)
             elif text == '/stop':
-                reply('Bot disabled')
-                setEnabled(chat_id, False)
-            
-            else text == '/posh'
-                reply('POOOOssh!!111!1')
+                reply('Poshbot stopped')
+                setEnabled(chat_id, False) 
+            elif text == '/posh': #add more posh parameters here
+                reply('POOOOOOOSshhshshshsshshsshshshsh')
+
+            elif text == '/image':
+                img = Image.new('RGB', (512, 512))
+                base = random.randint(0, 16777216)
+                pixels = [base+i*j for i in range(512) for j in range(512)]  # generate sample image
+                img.putdata(pixels)
+                output = StringIO.StringIO()
+                img.save(output, 'JPEG')
+                reply(img=output.getvalue())
+
             else:
-                reply('What command?')
+                reply('errrrr')
 
         
 
         elif 'who are you' in text:
-            reply('I AM POSH! THE POSHIEST BOT!!111!')
-        elif 'what time' in text:
-            reply('CAKE IS A LIEEEE!!111!!')
+            reply('boss')
+        elif 'who made you' in text:
+            reply('https://twitter.com/wuodland')
         else:
-            reply('error');
-        
+            if getEnabled(chat_id):
+                try:
+                    resp1 = json.load(urllib2.urlopen('https://github.com/wuodland/poshbot_telgram' + urllib.quote_plus(text.encode('utf-8'))))
+                    back = resp1.get('res')
+                except urllib2.HTTPError, err:
+                    logging.error(err)
+                    back = str(err)
+                if not back:
+                    reply('okay...')
+                
+            else:
+                logging.info('not enabled for chat_id {}'.format(chat_id))
+
 
 app = webapp2.WSGIApplication([
     ('/me', MeHandler),
     ('/updates', GetUpdatesHandler),
     ('/set_webhook', SetWebhookHandler),
     ('/webhook', WebhookHandler),
-],
+], debug=True) #needed for app engine webhook to work
