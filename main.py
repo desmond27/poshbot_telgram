@@ -6,7 +6,7 @@ import urllib
 import urllib2
 
 
-from PIL import Image
+
 import multipart
 
 
@@ -114,7 +114,7 @@ class WebhookHandler(webapp2.RequestHandler):
                 setEnabled(chat_id, False)
             
             else text == '/posh'
-                reply('')
+                reply('POOOOssh!!111!1')
             else:
                 reply('What command?')
 
