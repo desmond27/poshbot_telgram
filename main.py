@@ -14,9 +14,10 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 import webapp2
 
-TOKEN = 'removed'
+TOKEN = 'enter the token'
 
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
+
 
 
 
@@ -115,8 +116,7 @@ class WebhookHandler(webapp2.RequestHandler):
             elif text.startswith('/posh'): #add more posh parameters here
                 arg=text.strip('/posh')
                 replies=['wow, you are so posh {}'.format(arg),'THATs QUITE SOME POSHHHNNEESSSS  {}'.format(arg),'OMG You so posh, {}'.format(arg),'Fuckin posh,eh {}'.format(arg)]
-                reply((replies))
-
+                reply(random.choice(replies))
             elif text == '/image':
                 img = Image.new('RGB', (512, 512))
                 base = random.randint(0, 16777216)
